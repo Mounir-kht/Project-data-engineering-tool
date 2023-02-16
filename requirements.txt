@@ -52,3 +52,4 @@ w3lib
 Werkzeug
 WTForms
 zope.interface
+selenium
