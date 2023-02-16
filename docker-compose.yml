@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    container_name: elasticsearch2
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    container_name: kibana2
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "5601:5601"
+  mongo:
+    image: mongo
+    container_name: mongo2
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/mongo2:/data/db
+    ports:
+        - 27017:27017
+  notebook:
+    build: .
+    image: notebook24
+    container_name: notebook2
+    ports:
+     - "8888:8888"
+
+    command: ["pipenv", "run", "jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''"]
+    volumes:
+      - ./:/home/dev/code/
+
+  selenium:
+    container_name: selenium2
+    image: selenium/standalone-firefox
+    ports:
+      - "4444:4444"
+    network_mode: host
