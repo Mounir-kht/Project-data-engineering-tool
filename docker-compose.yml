@@ -28,18 +28,19 @@ services:
         - 27017:27017
   notebook:
     build: .
-    image: notebook24
-    container_name: notebook2
+    image: python
+    container_name: python
     ports:
-     - "8888:8888"
-
+     - 8888:8888
+     - 5066:5066
     command: ["pipenv", "run", "jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''"]
     volumes:
       - ./:/home/dev/code/
-
   selenium:
     container_name: selenium2
     image: selenium/standalone-firefox
     ports:
       - "4444:4444"
     network_mode: host
+
+    

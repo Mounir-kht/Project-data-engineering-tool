@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>La page de test la </title>
+</head>
+<body>
+    <form method='POST'>
+        <label for="nb_posts">Sélectionnez un Nombre:</label>
+        <select id="nb_posts" name="posts">
+            {% for i_post in nb_posts %}
+                {% if selected_nb_post == i_post %}
+                    <option value="{{ i_post }}" selected>{{ i_post }}</option>
+                {% else %}
+                    <option value="{{ i_post }}">{{ i_post }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <label for="list_entreprises">Sélectionnez une entreprise:</label>
+        <select id="list_entreprises" name="entreprise">
+            {% for i_entreprise in list_entreprises %}
+                {% if selected_entreprise == i_entreprise %}
+                    <option value="{{ i_entreprise }}" selected>{{ i_entreprise }}</option>
+                {% else %}
+                    <option value="{{ i_entreprise }}">{{ i_entreprise }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button type="submit">Valider</button>
+    </form>
+</body>
+</html>
