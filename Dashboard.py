@@ -1,10 +1,8 @@
-import click
-import os
 import pandas as pd
 from flask import Flask, render_template, url_for, request,redirect
 from markupsafe import escape
-from script_selenium_new import scraping
-from yf_data import yf_data
+from script_selenium_new import scraping, mongo_search
+from yf_data import finance_data
 
 dow_jones = pd.read_csv('data/dow_jones_companies.csv',sep=',')
 
@@ -34,11 +32,13 @@ def scrap(nb_post,entreprise):
     row = dow_jones.loc[dow_jones['Companies'] == entreprise]
     result = row['Symbols'].iloc[0]
     print(result)
-    yf_data(result)
-    # scraping(nb_posts=nb_post)
+    finance_data(result)
+    scraping(nb_posts=nb_post)
+    n_post,n_titre = mongo_search(dow_jones,entreprise)
+    print(n_post)
+    print(n_titre)
     
     return render_template('scrap.html',nb_post=nb_post,entreprise=entreprise)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5066))
     app.run(debug=True, host="0.0.0.0",port="5066")
