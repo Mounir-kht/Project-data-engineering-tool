@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Fin de Scraping</title>
-    <link rel="stylesheet" type="text/css" href="../static/test.css">
+    <link rel="stylesheet" type="text/css" href="../static/scrap.css">
 </head>
 <body>
     <div class="banner">
@@ -11,22 +11,43 @@
 		<h1>Reddit stocks analysis</h1>
         <ul class="nav">
 			<li><a href="/">Accueil</a></li>
-			<li><a href="#">A propos</a></li>
-			<li><a href="#">Contact</a></li>
 		</ul>
 	</div>
-    <div class="content">    
-        <p>
-            Vous avez choisi de scrapper {{nb_post}} posts et d'étudier les informations boursière de {{entreprise}}.
-            Nous avons donc récupéré les données demandées. 
-        </p>
-        <div id='chart1' class='chart'></div>
+    <div class="container">    
+        <div class="text">
+            Vous avez choisi de scraper {{nb_post}} posts et d'étudier les informations boursière de {{entreprise}}.
+            Nous avons donc récupéré les données demandées et voici le résultat.
+            {% if post_bool == True %}
+                <div>
+                    Nous avons trouvé {{n_post}} qui parlaient de {{entreprise}}. 
+                    Nous pouvons donc supposer que les fluctuations de la bourses ci contre ont sucités des réactions.
+                </div>
+            {% else %}
+                <div>
+                    Malheureusement, nous n'avons trouvé aucun post parlant de {{entreprise}}. Cela peut être du a plusieurs choses: 
+                    <ul>
+                        <li>Il n'y a pas de variations assez significatives pour que les gens en parlent sur reddit.</li>
+                        <li>Le nombre de post sélectionné est un peu trop faible et il n'y a donc pas scrapé les posts qui en parlaient. 
+                            Si vous pensez que cette option est vraie vous pouvez relancer un scraping sur plus de posts en retournant sur la page d'accueil.</li>
+                        <li>Il n'y a tout simplement pas de lien réel entre les variations de la bourse et les posts reddits.</li>
+                    </ul>
+                </div>
+            {% endif %} 
+        </div>
+        <div class='graph'>
+            <div id='chart1'></div>
+        </div>
+    </div>   
+    <div class='graph'>
+        <div id='chart2'></div>
     </div>
 </body>
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type='text/javascript'>
     var graphs = {{graphJSON | safe}};
+    var graphs2 = {{graphJSON2 | safe}};
     Plotly.plot('chart1',graphs,{});
+    Plotly.plot('chart2',graphs2,{});
 </script>
 </html>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Reddit Scraping</title>
-    <link rel="stylesheet" type="text/css" href="../static/test.css">
+    <link rel="stylesheet" type="text/css" href="../static/Accueil.css">
     
 </head>
 <body>
@@ -12,11 +12,8 @@
 		<h1>Reddit stocks analysis</h1>
         <ul class="nav">
 			<li><a href="/">Accueil</a></li>
-			<li><a href="#">A propos</a></li>
-			<li><a href="#">Contact</a></li>
 		</ul>
 	</div>
-	
 	<div class="content">  
         <h1>Bienvenue sur Reddit stocks analysis</h1>  
         <p>
@@ -27,7 +24,7 @@
             ciblez. Il faut prendre en compte que plus vous de posts (environ 2 min pour 25 posts et 5 min pour 100 posts).
         </p>
         <form method='POST'>
-            <label for="nb_posts">Sélectionnez un nombre:</label>
+            <label for="nb_posts">Sélectionnez le nombre de posts que vous souhaitez scraper:</label>
             <select id="nb_posts" name="posts">
                 {% for i_post in nb_posts %}
                     {% if selected_nb_post == i_post %}

@@ -2,30 +2,33 @@ import yfinance as yf
 from pymongo import MongoClient
 import pandas as pd
 
-def finance_data(quote='AAPL', period = '1mo', interval = '1d'):
+def finance_data(quote='AAPL', interval = '1d'):
+    # Récupération des données sur un an 
     quote = yf.Ticker(quote)
-    hist = quote.history(period=period, interval=interval)
+    hist = quote.history(period='1y', interval=interval)
     hist.drop(['Dividends','Stock Splits'], axis = 1, inplace = True)
-    client = MongoClient('mongo')
-    db = client["reddit_db"]
-    yf_db = db["yahoo_finance"]
+    hist = hist.reset_index()
     
-    yf_db.delete_many({}) 
-    yf_db.insert_many(hist.to_dict('records'))
-    cur = yf_db.find()
-    
-    date_temp = hist.index
     date=[]
+    for i in hist['Date']:
+        date.append(i.date())
+    hist['Date']=date
+    
+    # Récupération des données sur le dernier mois
+    hist_analyse = quote.history(period='1mo', interval=interval)
+    hist_analyse.drop(['Dividends','Stock Splits'], axis = 1, inplace = True)
+    hist_analyse = hist_analyse.reset_index()
+    
+    date_temp = []
     avg = []
-    for i in range(len(date_temp)):
-        date.append(date_temp[i].date())
-        avg.append((cur[i]['High']+cur[i]['Low'])/2)
-        
-    df = pd.DataFrame(zip(date,avg),columns=['Date','Avg'])
+    for i in range(len(hist_analyse)):
+        date_temp.append(hist_analyse['Date'][i].date())
+        avg.append((hist_analyse['High'][i]+hist_analyse['Low'][i])/2)
+    hist_analyse['Avg'] = avg
     
     var = []
-    for i in df['Avg']:
-        var.append(((i/(df['Avg'].sum()/df.shape[0]))-1)*100)
+    for i in hist_analyse['Avg']:
+        var.append(((i/(hist_analyse['Avg'].sum()/hist_analyse.shape[0]))-1)*100)
         
-    df['Var'] = (var)
-    return df
+    hist_analyse['Var'] = (var)
+    return hist, hist_analyse
