@@ -55,3 +55,4 @@ WTForms
 zope.interface
 selenium
 yfinance
+plotly

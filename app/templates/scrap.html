@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Fin de Scraping</title>
+    <link rel="stylesheet" type="text/css" href="../static/test.css">
+</head>
+<body>
+    <div class="banner">
+        <img src="../static/logo.png" alt="logo" class="logo">
+		<h1>Reddit stocks analysis</h1>
+        <ul class="nav">
+			<li><a href="/">Accueil</a></li>
+			<li><a href="#">A propos</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+	</div>
+    <div class="content">    
+        <p>
+            Vous avez choisi de scrapper {{nb_post}} posts et d'étudier les informations boursière de {{entreprise}}.
+            Nous avons donc récupéré les données demandées. 
+        </p>
+        <div id='chart1' class='chart'></div>
+    </div>
+</body>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script type='text/javascript'>
+    var graphs = {{graphJSON | safe}};
+    Plotly.plot('chart1',graphs,{});
+</script>
+</html>
+
+	
