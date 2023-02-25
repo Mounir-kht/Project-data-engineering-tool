@@ -3,9 +3,8 @@ import json
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
-from flask import Flask, render_template, url_for, request, redirect
-from script_selenium_new import scraping, mongo_search
-from yf_data import finance_data
+from flask import Flask, render_template, url_for, request, redirect, jsonify
+from script_selenium_new import scraping, mongo_search, finance_data
 
 dow_jones = pd.read_csv('data/dow_jones_companies.csv',sep=',')
 

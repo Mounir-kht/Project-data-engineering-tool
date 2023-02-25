@@ -11,10 +11,10 @@ services:
       - ./data/mongo2:/data/db
     ports:
         - 27017:27017
-  notebook:
+  reddit:
     build: .
-    image: python
-    container_name: python
+    image: reddit_scraping
+    container_name: reddit
     ports:
      - 8888:8888
      - 5066:5066
