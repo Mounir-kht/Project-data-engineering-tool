@@ -42,7 +42,7 @@ def scraping(nb_posts):
     client = MongoClient('mongo')
     db = client["reddit_db"]
     reddit = db["reddit"]
-    reddit.delete_many({}) 
+    # reddit.delete_many({}) 
         
     options = webdriver.FirefoxOptions()
     options.add_argument('--ignore-ssl-errors=yes')
@@ -173,5 +173,6 @@ def mongo_search(liste_entreprise, entreprise):
         print(i)
         n_titre+=1
     reddit.drop_indexes()
+    reddit.delete_many({}) 
     
     return n_post, n_titre
