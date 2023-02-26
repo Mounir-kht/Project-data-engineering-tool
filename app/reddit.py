@@ -25,7 +25,7 @@ def selection():
     return render_template('Accueil.html', nb_posts=nb_posts,
                         list_entreprises=list_entreprises,
                         selected_nb_post=selected_nb_post,
-                        selected_entreprise=selected_entreprise)
+                        selected_entreprise=selected_entreprise) 
 
 @app.route('/scrap/<nb_post>&<entreprise>')
 def scrap(nb_post,entreprise):

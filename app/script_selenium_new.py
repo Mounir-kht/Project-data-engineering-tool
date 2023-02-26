@@ -55,7 +55,7 @@ def scraping(nb_posts):
     time.sleep(2)
     screen_height = driver.execute_script("return window.screen.height;")   # get the screen height of the web
     i = 1
-    print ('into the loop')
+    print ('into the first loop')
     size_db = 0
     posts=driver.find_elements(By.XPATH, "//div[starts-with(@class, '_1oQyIsiPHYt6nx7VOmd1sz _1RYN-7H8gYctjOQeL8p2Q7 scrollerItem _3Qkp11fjcAw9I9wtLo8frE _1qftyZQ2bhqP62lbPjoGAh  Post')]")
 
@@ -88,7 +88,8 @@ def scraping(nb_posts):
             last_elem = post
             size_db +=1
             
-    print("fin boucle 1")
+    print("end of first loop")
+    print("into second loop")
     # print (last_elem.text)
     while size_db < int(nb_posts):
     #     print (i)
@@ -131,19 +132,15 @@ def scraping(nb_posts):
                 last_elem = post
                 size_db +=1
                 
-                if size_db%10 ==0 : print(size_db)
+                if size_db%10 ==0 : 
+                    print(size_db)
 
         # Break the loop when the height we need to scroll to is larger than the total scroll height
         if (screen_height) * i > scroll_height:
             break 
-        
-    # temps d'exécution
-    end_time = time.time()  
-    execution = (end_time - start_time)  /60
-    print("temps d'exécution: {:.2f}".format(execution))
     
     driver.quit()
-    print ('travail terminé')
+    print ('end of scraping')
     
     
 def mongo_search(liste_entreprise, entreprise):

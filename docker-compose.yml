@@ -16,10 +16,10 @@ services:
     image: reddit_scraping
     container_name: reddit
     ports:
-     - 8888:8888
+    #  - 8888:8888
      - 5066:5066
-    command: ["pipenv", "run", "jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''"]
-    # command: ["python","app/reddit.py"]
+    # command: ["pipenv", "run", "jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''"]
+    command: ["python","app/reddit.py"]
     volumes:
       - ./:/home/dev/code/
   selenium:
